@@ -1,0 +1,32 @@
+1.1: Data Query Language
+ 
+
+
+
+1. List the Name and Designation code of the staff who have joined before Jan 2003 and whose salary range is between 12000 and 25000. Display the columns with user defined Column headers. Hint: Use As clause along with other operators 
+ 
+SQL>SELECT STAFF_NAME,DESIGN_CODE FROM STAFF_MASTER WHERE (HIREDATE <'01-JAN-2003') AND STAFF_SAL BETWEEN 12000 AND 25000;
+
+
+ 
+2. List the staff code, name, and department number of the staff who have experience of 18 or more years and sort them based on their experience
+ 
+SQL>SELECT STAFF_CODE,STAFF_NAME,DEPT_CODE FROM STAFF_MASTER WHERE (MONTHS_BETWEEN(SYSDATE,HIREDATE))>=216  ORDER BY HIREDATE DESC;
+ 
+
+ 
+3. Display the staff details who do not have manager. Hint: Use is null   
+ 
+SQL>SELECT * FROM STAFF_MASTER WHERE MGR_CODE IS NULL;
+
+ 
+ 
+4. Display the Book details that were published during the period of 2001 to 2004. Also display book details with Book name having the character ‘&’ anywhere. 
+ 
+SQL>SELECT * FROM BOOK_MASTER WHERE BOOK_PUB_YEAR BETWEEN 2001 AND 2004 AND BOOK_NAME LIKE '%"&"%';
+ 
+
+ 
+5. List the names of the staff having ‘_’ character in their name.  
+ 
+SQL>SELECT STAFF_NAME FROM STAFF_MASTER WHERE STAFF_NAME LIKE '%_%';

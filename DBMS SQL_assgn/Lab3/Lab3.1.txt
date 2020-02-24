@@ -1,0 +1,106 @@
+3.1: Joins and Subqueries 
+
+
+
+
+1. Write a query which displays Staff Name, Department Code, Department Name, and Salary for all staff who earns more than 20000. 
+ 
+SQL> SELECT S.STAFF_NAME,
+  D.DEPT_CODE,
+  D.DEPT_NAME,
+  S.STAFF_SAL
+FROM STAFF_MASTER S,
+  DEPARTMENT_MASTER D
+WHERE S.DEPT_CODE=D.DEPT_CODE
+AND STAFF_SAL    >20000;
+
+
+ 
+2. Display Staff Code, Staff Name, Department Name, and his manager’s number and name. Label the columns Staff#, Staff, Mgr#, Manager.  
+ 
+SQL> SELECT S.STAFF_CODE AS STAFF# ,
+  S.STAFF_NAME      AS STAFF,
+  D.DEPT_NAME,
+  S.MGR_CODE AS MGR#
+FROM STAFF_MASTER S,
+  DEPARTMENT_MASTER D
+WHERE S.DEPT_CODE=D.DEPT_CODE;
+
+
+ 
+3. Create a query that will display Student Code, Student Name, Book Code, and Book Name for all students whose expected book return date is today. 
+ 
+SQL> SELECT S.STUDENT_CODE,S.STUDENT_NAME,B.BOOK_CODE,BB.BOOK_NAME FROM STUDENT_MASTER S,BOOK_TRANSACTIONS B, BOOK_MASTER BB WHERE S.STUDENT_CODE=B.STUDENT_CODE AND TO_CHAR(B.BOOK_EXPECTED_RETURN_DATE,'DD MM YYYY')  LIKE TO_CHAR(SYSDATE,'DD MM YYYY');
+ 
+SQL>SELECT S.STUDENT_CODE,
+  S.STUDENT_NAME,
+  B.BOOK_CODE,
+  BB.BOOK_NAME
+FROM STUDENT_MASTER S,
+  BOOK_TRANSACTIONS B,
+  BOOK_MASTER BB
+WHERE S.STUDENT_CODE=B.STUDENT_CODE
+AND TO_CHAR(B.BOOK_EXPECTED_RETURN_DATE,'DD MM YYYY') LIKE TO_CHAR(SYSDATE,'DD MM YYYY');
+
+
+ 
+4. Create a query that will display Staff Code, Staff Name, Department Name, Designation name, Book Code, Book Name, and Issue Date for only those staff who have taken any book in last 30 days. . If required, make changes to the table to create such a scenario. HH
+ 
+SQL>SELECT S.STAFF_CODE,S.STAFF_NAME,D.DEPT_NAME,F.DESIGN_NAME,G.BOOK_NAME,H.BOOK_ISSUE_DATE FROM STAFF_MASTER S,DEPARTMENT_MASTER D,DESIGNATION-MASTER F,BOOK_MASTER F,BOOK_ISSUE_DATE H WHERE MONTHS_BETWEEN(TO_CHAR(H.BOOK_ISSUE_DATE,'MM'),TO_CHAR(SYSDATE,'MM'))<1;
+ 
+
+ 
+5. Generate a report which contains the following information. 
+Staff Code, Staff Name, Designation Name, Department, Book Code, Book Name, 
+Author, Fine For the staff who has not returned the book. Fine will be calculated as Rs. 5 per day.  
+Fine = 5 * (No. of days = Current Date – Expected return date). Include records in the table to suit this problem statement 
+ 
+ 
+ 
+6. List Staff Code, Staff Name, and Salary for those who are getting less than the average salary of organization. 
+ 
+SQL>SELECT Staff_Code, Staff_Name,STAFF_SAL  FROM STAFF_MASTER WHERE STAFF_SAL<(SELECT AVG(STAFF_SAL) FROM STAFF_MASTER);
+
+
+ 
+7. Display Author Name, Book Name for those authors who wrote more than one book. 
+ 
+SQL>SELECT AUTHOR,BOOK_NAME FROM BOOK_MASTER GROUP BY AUTHORNAME HAVING COUNT(AUTHOR)>1;
+ 
+
+ 
+8. Display Staff Code, Staff Name, and Department Name for those who have taken more than one book.  
+ 
+SQL>SELECT S.Staff_Code,D.Staff_Name,D.DEPT_NAME FROM STAFF_MASTER S,BOOK_TRANSACTIONS D GROUP BY S.STAFF_NAME HAVING COUNT(D.STAFF_NAME)>1;
+
+
+ 
+9. Display the Student Code, Student Name, and Department Name for that department in which there are maximum number of student  studying. 
+ 
+SQL> SELECT S.STUDENT_CODE,S.STUDENT_NAME,D.DEPT_NAME FROM STAFF_MASTER S,DEPARTMENT_MASTER D GROUP BY S.DEPT_CODE HAVING MAX(S.DEPT_CODE);
+
+
+ 
+10. Display Staff Code, Staff Name, Department Name, and Designation name for those who have joined in last 3 months. 
+ 
+SQL>SELECT S.Staff_Code,S.Staff_Name,D.DEPT_NAME,F.DESIGN_NAME FROM STAFF_MASTER S, DEPARTMENT_MASTER D,DESIGNATION_MASTER F WHERE MONTHS_BETWEEN(TO_CHAR(HIREDATE,'MM') ,TO_CHAR(SYSDATE,'MM'))<3;  
+
+
+ 
+11. Display the Manager Name and the total strength of his/her team. 
+
+ 
+ 
+
+ 
+12. Display the details of books that have not been returned and expected return date was last Monday. Book name should be displayed in proper case.. 
+Hint: You can change /add records so that the expected return date  suits this problem statement 
+ 
+ 
+
+
+ 
+13. Write a query to display number of people in each Department. Output should display Department Code, Department Name and Number of People. 
+ 
+SQL> SELECT DEPT_CODE,DEPT_NAME,COUNT(S.STAFF_NAME) AS NUMBEROFPEOPLE FROM STAFF_MASTER S,DEPARTMENT_MASTER D GROUP BY DEPT_CODE;
+ 

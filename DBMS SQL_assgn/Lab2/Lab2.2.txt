@@ -1,0 +1,21 @@
+2.2: Group Functions:
+
+
+
+
+1. Display the Highest, Lowest, Total & Average salary of all staff. Label the columns Maximum, Minimum, Total and Average respectively for each Department code. Also round the result to the nearest whole number.
+
+SELECT ROUND(max(Staff_sal)) AS Maximum,ROUND(Min(Staff_Sal)) AS Minimum,ROUND(Avg(Staff_sal)) AS Average FROM Staff_master;
+
+
+
+2. Display Department code and number of managers working in that department. Label the column as ‘Total Number of Managers’ for each department.
+
+SELECT Deptno,COUNT(deptno) AS Total_Number_of_Managers FROM EMP WHERE JOB IN('MANAGER') GROUP BY Deptno,job;
+
+
+
+3. Get the Department number, and sum of Salary of all non-managers where the sum is greater than 20000.  
+
+SELECT Deptno,sum(sal) FROM EMP WHERE JOB NOT IN('MANAGER') GROUP BY Deptno --HAVING sum(sal) > 20000-- ORDER BY DeptNo;
+

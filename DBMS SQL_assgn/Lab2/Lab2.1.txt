@@ -1,0 +1,70 @@
+2.1: Single Row Functions:
+
+
+
+ 
+1. Create a query which will display Staff Name, Salary of each staff. Format the salary to be 15 characters long and left padded with ‘$’.  
+ 
+SQL>SELECT STAFF_NAME,'$'||STAFF_SAL AS STAFF_SALARY FROM STAFF_MASTER;
+
+
+
+ 
+2. Display name and date of birth of students where date of birth must be displayed in the format similar to “January, 12 1981” for those who were born on Saturday or Sunday. 
+ 
+SQL>  SELECT STUDENT_NAME,TO_CHAR(STUDENTDOB,'MONTH DD YYYY') AS STUDENT_DOB FROM STUDENT_MASTER WHERE TO_CHAR(STUDENTDOB,'DAY') LIKE  ('%SATURDAY%') OR TO_CHAR(STUDENTDOB,'DAY') LIKE  ('%SUNDAY%') ;
+
+
+ 
+3. Display each Staff name and number of months they worked for the organization. Label the column as ‘Months Worked’. Order your result by number of months employed. Also Round the number of months to closest whole number
+ 
+SQL> SELECT STAFF_NAME,ROUND(MONTHS_BETWEEN(SYSDATE,HIREDATE)) AS MONTHS_WORKED FROM STAFF_MASTER ORDER BY MONTHS_WORKED DESC;
+
+
+ 
+4. List the details of the staff who have joined in first half of December month (irrespective of the year)
+ 
+SQL>SELECT * FROM STAFF_MASTER WHERE TO_CHAR(HIREDATE,'DD') BETWEEN 1 AND 15 AND TO_CHAR(HIREDATE,'MONTH') LIKE '%DECEMBER%' ;
+
+
+ 
+5. Write a query that displays Staff Name, Salary, and Grade of all staff. Grade depends on the following table.  
+Salary Grade 
+Salary >=50000 A 
+Salary >= 25000 < 50000 B 
+Salary>=10000 < 25000 C 
+OTHERS D 
+ 
+SQL>SELECT STAFF_NAME,STAFF_SAL,
+	CASE 
+	WHEN STAFF_SAL >=50000 THEN 'A'  
+	WHEN STAFF_SAL  >25000 AND  STAFF_SAL<50000 THEN 'B' 
+	WHEN STAFF_SAL  >10000 AND  STAFF_SAL<25000 THEN 'C' 
+	ELSE 'D' 
+	END CASE
+	FROM STAFF_MASTER;
+ 
+ 
+ 
+6. Display the Staff Name, Hire date and day of the week on which staff was hired. Label the column as DAY. Order the result by the day of the week starting with Monday.        Hint :Use to_char with hiredate and formats ‘DY’ and ’D’ 
+ 
+SQL>SELECT STAFF_NAME,TO_CHAR(HIREDATE,'DD MONTH YYYY') AS HIRE_DATE,TO_CHAR(HIREDATE,'DAY')AS DAY FROM STAFF_MASTER ORDER BY TO_CHAR(HIREDATE,'DAY') DESC;
+
+
+ 
+7. Write a query to find the position of third occurrence of ‘i’ in the given word ‘Mississippi’.  
+ 
+SQL> SELECT INSTR('Mississippi','i',2,3) FROM DUAL;
+
+
+ 
+8. Write a query to find the pay date for the month. Pay date is the last Friday of the month. Display the date in the format “Twenty Eighth of January, 2002”. Label the heading as PAY DATE. Hint: use to_char, next_day and last_day functions 
+ 
+SQL>SELECT TO_CHAR(NEXT_DAY(SYSDATE,'TUESDAY'),'DD MONTH ,YYYY') AS DAY FROM DUAL WHERE NEXT_DAY(SYSDATE,'TUESDAY')<LAST_DAY(SYSDATE) ;
+
+ 
+ 
+9. Display Student code, Name and Dept Name. Display “Electricals” if dept code = 20, “Electronics” if Dept code =30 and “Others” for all other Dept codes in the Dept Name column. Hint : Use Decode   
+ 
+SQL> SELECT STUDENT_CODE,STUDENT_NAME,DECODE(DEPT_CODE,20,'ELECTRICALS',30,'ELECTRONICS','OTHERS') DEPARTMENT_NAME FROM STUDENT_MASTER;
+

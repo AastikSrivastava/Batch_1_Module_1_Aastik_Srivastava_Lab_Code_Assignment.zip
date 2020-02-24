@@ -1,0 +1,35 @@
+6.1: Transaction Control Language Statements
+
+
+
+
+1.Insert rows with the following data into the Customer table.
+ 
+SQL>insert into customermaster (customerid,'customername','address1','address2','gender',age,'phoneno) values ( 6000, John, #115 Chicago, #115 Chicago, M, 25, 7878776, 10000 );
+ 
+SQL>insert into customermaster (customerid,'customername','address1','address2','gender',age,'phoneno) values (6001, Jack, #116 France, #116 France, M, 25, 434524, 20000  );
+ 
+SQL>insert into customermaster (customerid,'customername','address1','address2','gender',age,'phoneno) values (6002, James, #114 New York, #114 New York, M, 45, 431525, 15000.50);
+ 
+
+ 
+2.Create a Savepoint named ‘SP1’ after third record in the Customer table .
+SQL>insert into customermaster (customerid,'customername','address1','address2','gender',age,'phoneno) values ( 6000, John, #115 Chicago, #115 Chicago, M, 25, 7878776, 10000 );
+ 
+SQL>insert into customermaster (customerid,'customername','address1','address2','gender',age,'phoneno) values (6001, Jack, #116 France, #116 France, M, 25, 434524, 20000  );
+ 
+SQL>insert into customermaster (customerid,'customername','address1','address2','gender',age,'phoneno) values (6002, James, #114 New York, #114 New York, M, 45, 431525, 15000.50);
+ 
+SQL> savepoint p1;
+ 
+ 
+
+3.Insert the below row in the Customer table. 
+SQL>insert into customermaster (customerid,'customername','address1','address2','gender',age,'phoneno) values (6003, John, #114 Chicago, #114 Chicago, M, 45, 439525, 19000.60);
+ 
+
+ 
+4.Execute rollback statement in such a way that whatever manipulations done before Savepoint sp1 are permanently implemented, and the ones after Savepoint SP1 are not stored as a part of the Customer table. 
+ 
+SQL>rollback p1;
+ 
